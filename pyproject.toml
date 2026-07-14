@@ -1,0 +1,53 @@
+[project]
+name = "promptops-lab"
+version = "0.1.0"
+description = "LLMOps laboratory for prompt versioning and evaluation."
+requires-python = ">=3.11"
+authors = [
+  { name = "Muhammet Ali Varlik", email = "iletisim.muhammetalivarlik@gmail.com" }
+]
+
+dependencies = [
+  "pydantic>=2.0",
+  "python-dotenv",
+  "numpy",
+  "pandas",
+  "requests",
+  "mlflow>=2.15,<3",
+  "chromadb==0.5.3",
+  "langchain>=0.3,<0.4",
+  "langgraph>=0.2,<0.3",
+  "tqdm",
+  "pyarrow",
+  "streamlit>=1.32.0",
+  "jinja2>=3.1.3",
+  "ragas>=0.1.4",
+  "deepeval>=0.21.0",
+  "llmops-common"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "ruff",
+  "black",
+  "mypy"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.black]
+line-length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
