@@ -1,0 +1,20 @@
+[
+  {
+    "id": "case_01",
+    "context": "XYZ Corp offers a 14-day full refund policy for all SaaS subscriptions if the user has not exceeded 500 API calls.",
+    "question": "Can I get my money back if I cancel my subscription on day 10 after making 100 API calls?",
+    "ground_truth": "Yes, you are eligible for a full refund because it is within the 14-day period and you have used fewer than 500 API calls."
+  },
+  {
+    "id": "case_02",
+    "context": "Premium tier users get 24/7 priority slack channel support. Basic tier users can only submit tickets via email with a 48-hour SLA.",
+    "question": "I am a basic tier user. Can I join the priority Slack channel for instant support?",
+    "ground_truth": "No, priority Slack support is restricted to Premium tier users. Basic tier users must submit tickets via email, which has a 48-hour SLA."
+  },
+  {
+    "id": "case_03",
+    "context": "Our service dashboard is undergoing scheduled database maintenance on Sunday from 02:00 AM to 04:00 AM UTC. Expect temporary downtime.",
+    "question": "Is the system going to be down on Friday evening?",
+    "ground_truth": "No, the scheduled maintenance and temporary downtime will only happen on Sunday from 02:00 AM to 04:00 AM UTC."
+  }
+]

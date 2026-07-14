@@ -1,0 +1,8 @@
+{
+  "support_agent_v1": {
+    "case_01": "Yes, you can get a refund within 14 days if you used less than 500 calls."
+  },
+  "support_agent_v2": {
+    "case_01": "• Yes, you are eligible for a full refund.\n• This is because you are within the 14-day policy and have only used 100 API calls."
+  }
+}
