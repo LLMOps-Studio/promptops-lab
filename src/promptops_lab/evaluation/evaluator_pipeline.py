@@ -1,7 +1,7 @@
 import json
 import mlflow
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 from deepeval.metrics import HallucinationMetric
 from deepeval.test_case import LLMTestCase
@@ -57,11 +57,12 @@ class PromptEvaluatorPipeline:
         with open(self.dataset_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def evaluate_version(self, prompt_version: str) -> Dict[str, float]:
+    def evaluate_version(self, prompt_version: str, custom_template: Optional[str] = None) -> Dict[str, float]:
         dataset = self.load_dataset()
         
         self.mlflow_logger.start_trace(run_name=f"eval_{prompt_version}")
         mlflow.log_param("prompt_version", prompt_version)
+        mlflow.log_param("is_custom_prompt", custom_template is not None)
         
         total_faithfulness = 0.0
         total_relevance = 0.0
@@ -71,7 +72,12 @@ class PromptEvaluatorPipeline:
             context = item["context"]
             question = item["question"]
             
-            response = self.agent.execute(version=prompt_version, context=context, question=question)
+            response = self.agent.execute(
+                version=prompt_version,
+                context=context,
+                question=question,
+                custom_template=custom_template,
+            )
             
             # --- DÜZELTME BURADA: Ayrı ayrı fonksiyonları çağırıyoruz ---
             f_score = self.llm_evaluator.evaluate_faithfulness(

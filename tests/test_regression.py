@@ -28,14 +28,14 @@ def test_prompt_regression(
     """
     pipeline = PromptEvaluatorPipeline()
     
-    mock_execute.side_effect = lambda version, context, question: mock_responses["support_agent_v1"]["case_01"]
+    mock_execute.side_effect = lambda version, context, question, custom_template=None: mock_responses["support_agent_v1"]["case_01"]
     mock_faithfulness.return_value = 0.90
     mock_relevance.return_value = 0.85
     mock_score.return_value = 0.15 
     
     baseline_metrics = pipeline.evaluate_version("v1")
     
-    mock_execute.side_effect = lambda version, context, question: mock_responses["support_agent_v2"]["case_01"]
+    mock_execute.side_effect = lambda version, context, question, custom_template=None: mock_responses["support_agent_v2"]["case_01"]
     mock_faithfulness.return_value = 0.95
     mock_relevance.return_value = 0.95
     mock_score.return_value = 0.05 
