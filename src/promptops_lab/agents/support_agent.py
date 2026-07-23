@@ -1,6 +1,6 @@
 import yaml
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from llmops_common.client.factory import get_llm_client
 
 class SupportAgent:
@@ -26,14 +26,26 @@ class SupportAgent:
         with open(prompt_file, "r", encoding="utf-8") as f:
             return yaml.safe_load(f)
 
-    def execute(self, version: str, context: str, question: str) -> str:
+    def execute(
+        self,
+        version: str,
+        context: str,
+        question: str,
+        custom_template: Optional[str] = None,
+    ) -> str:
         """
-        Loads the specified prompt version, binds variables, and executes inference 
+        Loads the specified prompt version, binds variables, and executes inference
         using the shared llmops-common LLM client.
+
+        If custom_template is provided, it's used directly instead of loading
+        version/support_agent.yaml from disk -- this is what lets the UI try
+        an arbitrary, hand-edited prompt under any label (v1, v2, v3,
+        "experiment-a", ...) without first creating a YAML file for it.
+        custom_template must still contain the {context} and {question}
+        placeholders; a missing placeholder raises KeyError from .format(),
+        same as it always has for on-disk templates.
         """
-        # Load prompt metadata and template
-        prompt_config = self.load_prompt_config(version)
-        template_str = prompt_config["template"]
+        template_str = custom_template if custom_template is not None else self.load_prompt_config(version)["template"]
 
         # Validate and format input variables
         formatted_prompt = template_str.format(context=context, question=question)
