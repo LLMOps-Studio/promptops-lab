@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout promptops-lab
+      uses: actions/checkout@v4
+
     - name: Checkout llmops-common dependency
       uses: actions/checkout@v4
       with:
