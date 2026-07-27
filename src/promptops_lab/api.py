@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from llmops_common.observability.instrumentation import instrument_app
 from pydantic import BaseModel
 from typing import Dict, Any, Optional
 
@@ -13,6 +14,7 @@ app = FastAPI(
     description="LLMOps laboratory for prompt versioning and evaluation.",
     version="0.1.0"
 )
+instrument_app(app)
 
 # Enable CORS for the Vite frontend
 app.add_middleware(
