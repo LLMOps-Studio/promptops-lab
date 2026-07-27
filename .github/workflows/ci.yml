@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: LLMOps-Studio/llmops-common
-        path: ../../LLMOpsCommon/llmops-common
+        path: llmops-common-src
 
     - name: Set up Python 3.11
       uses: actions/setup-python@v4
@@ -26,6 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install -e ./llmops-common-src
         pip install -e .[dev]
 
     - name: Run Regression Tests (Mocked LLM)
